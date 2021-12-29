@@ -67,7 +67,6 @@ export const Episode20 = () => {
                 />
               );
             })}
-            }
           </svg>
         )}
       </div>
