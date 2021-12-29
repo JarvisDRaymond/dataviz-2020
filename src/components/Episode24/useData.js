@@ -7,7 +7,7 @@ export const useData = () => {
     const [data, setData] = useState(null);
     useEffect(() => {
       const row = (d) => {
-        d.POPULATION = +d["2020"];
+        d.POPULATION = +d["2020"]*1000;
         return d;
       };
       csv(csvUrl, row).then((data) => {
