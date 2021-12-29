@@ -44,8 +44,10 @@ export const Episode24 = () => {
       </a>
       <svg width={width} height={height}>
         <g transform={`translate(${margin.left},${margin.right})`}>
-          <AxisBottom xScale={xScale} innerHeight={innerHeight}
-            tickFormat={n=> format('.2s')(n).replace('G','B')}
+          <AxisBottom
+            xScale={xScale}
+            innerHeight={innerHeight}
+            tickFormat={(n) => format(".2s")(n).replace("G", "B")}
           />
           <AxisLeft yScale={yScale} />
           <text
