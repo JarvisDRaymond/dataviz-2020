@@ -17,6 +17,7 @@ import { Episode25 } from "./components/Episode25/Episode25";
 import { Episode26 } from "./components/Episode26/Episode26";
 import { Episode28 } from "./components/Episode28/Episode28";
 import { Episode30 } from "./components/Episode30/Episode30";
+import { Episode31 } from "./components/Episode31/Episode31";
 
 function App() {
   return (
@@ -39,7 +40,8 @@ function App() {
       {/*<Episode25 />*/}
       {/*<Episode26 />*/}
       {/*<Episode28 />*/}
-      <Episode30 />
+      {/*<Episode30 />*/}
+      <Episode31 />
     </div>
   );
 }
