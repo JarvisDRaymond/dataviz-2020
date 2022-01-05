@@ -34,7 +34,7 @@ text {
 .mark circle {
   fill: #137b80;
 }
-.axis-label {
+.axis-label, .dropdown-label {
   fill: #635f5d;
   font-size: 1.25em;
 }
@@ -46,12 +46,21 @@ svg {
   margin-top: 3rem;
 }
 .dropdown {
+  margin-left: 1em;
+}
+.Dropdown-root {
+  width: 300px;
   display: inline-block;
 }
-.dropdown label {
-  display: inline;
+.dropdown-label {
+  font-size: 3em;
+  margin: 0 10px 0 30px;
 }
-.dropdown select {
-  display: inline-block;
-  margin: 0 1em;
+.Dropdown-menu {
+  max-height: 500px;
+}
+.menus-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
