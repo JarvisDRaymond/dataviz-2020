@@ -1,0 +1,15 @@
+
+
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      label {
+          display: block;
+      }
+      label, select {
+        font-size: 2em;
+      }
+      select option {
+        font-size: 1rem;
+      }
