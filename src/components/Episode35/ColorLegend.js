@@ -4,7 +4,8 @@ export const ColorLegend = ({
   tickSpacing = 40,
   tickTextOffset = 20,
   onHover,
-  hoverValue
+  hoverValue,
+  fadeOpacity
 }) => (
   <>
     <text
@@ -26,7 +27,7 @@ export const ColorLegend = ({
             key={i}
             className="tick"
             transform={`translate(0,${tickSpacing * i})`}
-            opacity={hoverValue&& domainValue !==hoverValue?0.25:1}
+            opacity={hoverValue&& domainValue !==hoverValue? fadeOpacity:1}
           >
             <circle r="7" fill={colorScale(domainValue)} />
             <text className="tick" dy=".32em" x={tickTextOffset}>

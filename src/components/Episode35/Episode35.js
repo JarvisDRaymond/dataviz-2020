@@ -166,18 +166,15 @@ export const Episode35 = () => {
               yValue={yValue}
             />
           </g>
-
-          {hoverValue && (
-            <Marks
-              data={filteredData}
-              xScale={xScale}
-              yScale={yScale}
-              colorScale={colorScale}
-              colorValue={colorValue}
-              xValue={xValue}
-              yValue={yValue}
-            />
-          )}
+          <Marks
+            data={filteredData}
+            xScale={xScale}
+            yScale={yScale}
+            colorScale={colorScale}
+            colorValue={colorValue}
+            xValue={xValue}
+            yValue={yValue}
+          />
         </g>
       </svg>
     </>
