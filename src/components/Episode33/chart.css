@@ -31,9 +31,7 @@ text {
 .tick text {
   fill: #8e8883;
 }
-.mark circle {
-  fill: #137b80;
-}
+
 .axis-label, .dropdown-label {
   fill: #635f5d;
   font-size: 1.25em;

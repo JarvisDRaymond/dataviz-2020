@@ -18,7 +18,8 @@ import { Episode26 } from "./components/Episode26/Episode26";
 import { Episode28 } from "./components/Episode28/Episode28";
 import { Episode30 } from "./components/Episode30/Episode30";
 import { Episode31 } from "./components/Episode31/Episode31";
-import { Episode32 } from "./components/Episode32/Episode32";
+import { Episode32 } from "./components/Episode32/Episode32"; 
+import { Episode33 } from "./components/Episode33/Episode33";
 
 function App() {
   return (
@@ -43,7 +44,8 @@ function App() {
       {/*<Episode28 />*/}
       {/*<Episode30 />*/}
       {/*<Episode31 />*/}
-      <Episode32 />
+      {/*<Episode32 />*/}
+      <Episode33 />
     </div>
   );
 }
