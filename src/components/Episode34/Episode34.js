@@ -1,0 +1,160 @@
+import React, { useEffect, useState } from "react";
+import ReactDropdown from "react-dropdown";
+import "react-dropdown/style.css";
+import {
+  csv,
+  csvFormat,
+  extent,
+  max,
+  scaleBand,
+  scaleLinear,
+  format,
+  scaleOrdinal,
+} from "d3";
+import { useData } from "./useData";
+import { AxisBottom } from "./AxisBottom";
+import { AxisLeft } from "./AxisLeft";
+import { Marks } from "./Marks";
+import { Border } from "./Border";
+import { Dropdown } from "./Dropdown";
+import { ColorLegend } from "./ColorLegend";
+import "./chart.css";
+
+export const Episode34 = () => {
+  const data = useData();
+  const width = window.innerWidth *.8 ;
+  const height = 800;
+  const margin = {
+    top: 40,
+    right: 200,
+    bottom: 250,
+    left: 80,
+  };
+  const attributes = [
+    { value: "sepal_length", label: "Sepal Length" },
+    { value: "sepal_width", label: "Sepal Width" },
+    { value: "petal_length", label: "Petal Length" },
+    { value: "petal_width", label: "Petal Width" },
+    { value: "species", label: "Species" },
+  ];
+
+  const xAxisLabelOffset = 40;
+  const innerHeight = height - margin.top - margin.bottom;
+  const innerWidth = width - margin.right - margin.left;
+
+  const initialXAttribute = "petal_length";
+  const [xAttribute, setXAttribute] = useState(initialXAttribute);
+
+  const initialYAttribute = "petal_width";
+  const [yAttribute, setYAttribute] = useState(initialYAttribute);
+
+  const xValue = (d) => d[xAttribute];
+  const yValue = (d) => d[yAttribute];
+  console.log("xValue", xValue);
+
+  const getLabel = (value) => {
+    for (let i = 0; i < attributes.length; i++) {
+      if (attributes[i].value === value) {
+        return attributes[i].label;
+      }
+    }
+  };
+
+  const xAxisLabel = getLabel(xAttribute);
+  const yAxisLabel = getLabel(yAttribute);
+  const yAxisLabelOffset = 60;
+
+  if (!data) {
+    return <pre>Loading Episode 34...</pre>;
+  }
+  const xScale = scaleLinear()
+    // using extent is the same as .domain([min(data,xValue), max(data, xValue)])
+    .domain(extent(data, xValue))
+    .range([0, innerWidth]);
+  const yScale = scaleLinear()
+    .domain(extent(data, yValue))
+    .range([innerHeight, 0]);
+
+  const colorValue = (d) => d.species;
+
+  const colorScale = scaleOrdinal()
+    .domain(data.map(colorValue))
+    .range(["#E6842A", "#137B80", "#8E6C8A"]);
+
+  return (
+    <>
+      <h1>Episode 34</h1>
+      <p>Scatter Plot with Colour legend</p>
+      <div className="menus-container">
+        <div className="dropdown">
+          <span className="dropdown-label">Y</span>
+          <ReactDropdown
+            options={attributes}
+            id="y-select"
+            value={yAttribute}
+            onChange={({ value }) => setYAttribute(value)}
+          />
+        </div>
+
+        <div className="dropdown">
+          <span className="dropdown-label">X</span>
+          <ReactDropdown
+            options={attributes}
+            id="x-select"
+            value={xAttribute}
+            onChange={({ value }) => setXAttribute(value)}
+          />
+        </div>
+      </div>
+
+      <svg width={width} height={height}>
+        <g transform={`translate(${margin.left},${margin.top})`}>
+          <AxisBottom
+            xScale={xScale}
+            innerHeight={innerHeight}
+            tickFormat={(n) => format(".2s")(n).replace("G", "B")}
+          />
+          <AxisLeft yScale={yScale} innerWidth={innerWidth} />
+          <text
+            className="axis-label"
+            x={innerWidth / 2}
+            y={innerHeight + xAxisLabelOffset}
+            style={{ textAnchor: "middle" }}
+          >
+            {xAxisLabel}
+          </text>
+          <text
+            className="axis-label"
+            style={{ textAnchor: "middle" }}
+            transform={`translate(${-yAxisLabelOffset}, ${
+              innerHeight / 2
+            }) rotate(-90) `}
+          >
+            {yAxisLabel}
+          </text>
+
+          <text
+            className="title"
+            x={innerWidth / 2}
+            y={-8}
+            style={{ textAnchor: "middle" }}
+          >
+            {yAxisLabel} vs {xAxisLabel}
+          </text>
+          <g transform={`translate(${innerWidth+50})`}>
+            <ColorLegend colorScale={colorScale} colorValue={colorValue} />
+          </g>
+          <Marks
+            data={data}
+            xScale={xScale}
+            yScale={yScale}
+            colorScale={colorScale}
+            colorValue={colorValue}
+            xValue={xValue}
+            yValue={yValue}
+          />
+        </g>
+      </svg>
+    </>
+  );
+};
