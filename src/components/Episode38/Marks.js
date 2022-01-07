@@ -1,5 +1,5 @@
 import { curveNatural, line } from "d3";
-export const Marks = ({ binnedData, innerHeight = window.innerHeight,xScale, yScale, xValue, yValue }) => {
+export const Marks = ({ binnedData, innerHeight,xScale, yScale, xValue, yValue }) => {
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
