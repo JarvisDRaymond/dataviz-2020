@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    margin: 0;
+
+}
+pre {
+    font-size: 7em;
+}
+#root {
+    margin: 0 2em;
+
+}
+
+.marks path {
+    fill: #137B80;
+
+    
+}
+.marks path.sphere {
+   fill: #C0C0BB;
+   stroke:#137B80;
+   stroke-width: 0.1;
+   opacity: 0.4;
+
+}
+.marks path.interiors {    
+    stroke: #339485;
+    stroke-width: 1;
+    opacity: 0.5;
+}
+.marks path.graticules {
+    fill: none;
+    stroke: lightgrey;
+    stroke-width: 0.75;
+}
+.marks .features {
+    opacity: 0.3;
+}
+
+.title {
+    fill: #635F5D;
+    font-size:1.75em;
+}
+svg {
+    margin-top: 3rem;
+}
+.marks circle:hover{
+    fill:gold!important;
+    z-index:1000;
+    stroke: gold;
+    stroke-width:3px;
+    opacity:1!important;
+}
