@@ -2,7 +2,7 @@ import React from 'react';
 import { scaleSqrt, max } from 'd3';
 import { Marks } from './Marks';
 
-export const BubbleMap = ({ data, worldAtlas }) => {
+export const BubbleMap = ({ data,filteredData, worldAtlas }) => {
   const sizeValue = d => d['Total Dead and Missing'];
   const maxRadius = 15;
 
@@ -13,7 +13,7 @@ export const BubbleMap = ({ data, worldAtlas }) => {
   return (
     <Marks
       worldAtlas={worldAtlas}
-      data={data}
+      data={filteredData}
       sizeScale={sizeScale}
       sizeValue={sizeValue}
     />

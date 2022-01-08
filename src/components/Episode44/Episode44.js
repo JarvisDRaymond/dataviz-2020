@@ -26,7 +26,8 @@ export const Episode44 = () => {
   return (
     <svg width={width} height={height}>
       <BubbleMap
-        data={filteredData}
+        data={data}
+        filteredData={filteredData}
         worldAtlas={worldAtlas}
       />
       <g transform={`translate(0, ${height - dateHistogramSize * height})`}>

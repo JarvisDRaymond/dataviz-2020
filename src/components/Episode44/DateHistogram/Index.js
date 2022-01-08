@@ -9,9 +9,8 @@ import {
   sum,
   brushX,
   select,
-  
 } from "d3";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useMemo } from "react";
 import { AxisBottom } from "./AxisBottom";
 import { AxisLeft } from "./AxisLeft";
 import { Marks } from "./Marks";
@@ -20,7 +19,13 @@ const margin = { top: 0, right: 30, bottom: 20, left: 45 };
 const xAxisLabelOffset = 54;
 const yAxisLabelOffset = 30;
 
-export const DateHistogram = ({ xValue, data, width, height, setBrushExtent }) => {
+export const DateHistogram = ({
+  xValue,
+  data,
+  width,
+  height,
+  setBrushExtent,
+}) => {
   const brushRef = useRef();
 
   const xAxisLabel = "Time";
@@ -33,26 +38,31 @@ export const DateHistogram = ({ xValue, data, width, height, setBrushExtent }) =
 
   const xAxisTickFormat = timeFormat("%m/%d/%Y");
 
-  const xScale = scaleTime()
-    .domain(extent(data, xValue))
-    .range([0, innerWidth])
-    .nice();
+  const xScale = useMemo(
+    () =>
+      scaleTime().domain(extent(data, xValue)).range([0, innerWidth]).nice(),
+    [data, xValue, innerWidth]
+  );
 
   const [start, stop] = xScale.domain();
 
-  const binnedData = bin()
-    .value(xValue)
-    .domain(xScale.domain())
-    .thresholds(timeMonths(start, stop))(data)
-    .map((array) => ({
-      y: sum(array, yValue),
-      x0: array.x0,
-      x1: array.x1,
-    }));
+  const binnedData = useMemo(
+    () =>
+      bin()
+        .value(xValue)
+        .domain(xScale.domain())
+        .thresholds(timeMonths(start, stop))(data)
+        .map((array) => ({
+          y: sum(array, yValue),
+          x0: array.x0,
+          x1: array.x1,
+        })),
+    [data]
+  );
 
-  const yScale = scaleLinear()
+  const yScale = useMemo(() => scaleLinear()
     .domain([0, max(binnedData, (d) => d.y)])
-    .range([innerHeight, 0]);
+    .range([innerHeight, 0]), [binnedData]);
 
   useEffect(() => {
     const brush = brushX().extent([
@@ -60,11 +70,12 @@ export const DateHistogram = ({ xValue, data, width, height, setBrushExtent }) =
       [innerWidth, innerHeight],
     ]);
     brush(select(brushRef.current));
-
-    brush.on("brush end", (event) => { 
-     setBrushExtent(event.selection ? event.selection.map(xScale.invert): null);
+    brush.on("brush end", (event) => {
+      setBrushExtent(
+        event.selection ? event.selection.map(xScale.invert) : null
+      );
     });
-  }, [innerWidth, innerHeight]);
+  }, [innerWidth, xScale, stop, start, innerHeight]);
 
   return (
     <>
